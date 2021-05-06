@@ -1,3 +1,9 @@
+#include <X11/XF86keysym.h>
+/* commands */
+static const char *upvol[] = { "amixer", "-q", "-c", "0", "set", "Master", "2+", NULL };
+static const char *downvol[] = { "amixer", "-q", "-c", "0", "set", "Master", "2-", NULL };
+// for muting/unmuting //
+static const char *mute[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 /* appearance */
 static const int sloppyfocus        = 1;  /* focus follows mouse */
 static const unsigned int borderpx  = 1;  /* border pixel of windows */
@@ -107,6 +113,9 @@ static const Key keys[] = {
 #define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
 	CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
 	CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
+	{ 0,XF86XK_AudioRaiseVolume, spawn,{.v = upvol } },
+        { 0,XF86XK_AudioLowerVolume, spawn,{.v = downvol } },
+        { 0,XF86XK_AudioMute,spawn,{.v = mute } },
 };
 
 static const Button buttons[] = {
